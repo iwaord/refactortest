@@ -1,5 +1,5 @@
 // 料金を計算する
-function amountFor(play, perf) {
+var amountFor = function amountFor(play, perf) {
 　let thisAmount =0;
 
   switch (play.type) {
@@ -21,7 +21,7 @@ function amountFor(play, perf) {
   }
   return thisAmount;
 }
-
+exports.amountFor = amountFor;
 
 exports.statement = function statement (invoice, plays) {
   console.log(invoice)
