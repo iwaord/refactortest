@@ -23,7 +23,7 @@ function amountFor(play, perf) {
 }
 
 
-function statement (invoice, plays) {
+exports.statement = function statement (invoice, plays) {
   console.log(invoice)
 
   let totalAmount = 0;
@@ -54,5 +54,3 @@ function statement (invoice, plays) {
 
   return result;
 } 
-
-module.exports = statement;

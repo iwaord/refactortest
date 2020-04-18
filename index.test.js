@@ -1,4 +1,4 @@
-const statement = require('./index')
+const indexJS = require('./index')
 
 const plays = JSON.parse('{  "hamlet": {"name": "Hamlet", "type": "tragedy"},  "as−like": {"name": "As You Like It", "type": "comedy"},  "othello": {"name": "Othello", "type": "tragedy"}  }')
 
@@ -9,6 +9,6 @@ const exp = 'Statement for BigCo\n Hamlet: $650.00 (55 seats)\n As You Like It: 
 
 describe('statement について', () => {
   it('レポートが一致すること', () => {
-    expect(statement(invoices[0], plays)).toEqual(exp)
+    expect(indexJS.statement(invoices[0], plays)).toEqual(exp)
   })
 })
