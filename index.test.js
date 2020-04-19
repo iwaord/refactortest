@@ -6,8 +6,12 @@ const invoices = JSON.parse('[  {  "customer": "BigCo",  "performances": [  {  "
 
 // 料金テスト
 describe('amountFor について', () => {
-  it('hamletの料金計算が一致すること', () => {
-    expect(indexJS.amountFor(plays[invoices[0].performances[0].playID], invoices[0].performances[0])).toEqual(65000)
+  var testPlayID = 'hamlet';
+  var testPerformance = invoices[0].performances.filter(function(item, index){
+    if (item.playID == testPlayID) return true;
+  });
+  it(testPlayID + 'の料金計算が一致すること', () => {
+    expect(indexJS.amountFor(plays[testPlayID], testPerformance[0])).toEqual(65000)
   })
 })
 

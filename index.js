@@ -24,7 +24,6 @@ var amountFor = function amountFor(play, perf) {
 exports.amountFor = amountFor;
 
 exports.statement = function statement (invoice, plays) {
-  console.log(invoice)
 
   let totalAmount = 0;
   let volumeCredits = 0;
