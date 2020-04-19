@@ -43,14 +43,13 @@ exports.statement = function statement (invoice, plays) {
   let result = `Statement for ${invoice.customer}\n`;
 
   for (let perf of invoice.performances) { 
-    const play = plays[perf.playID];
-
-    volumeCredits += volumeCreditsFor(play, perf);
+ 
+    volumeCredits += volumeCreditsFor(plays[perf.playID], perf);
 
     // 注文の内訳を出力
-    result += ` ${play.name}: ${usd(amountFor(play, perf))} (${perf.audience} seats)\n`;
+    result += ` ${plays[perf.playID].name}: ${usd(amountFor(plays[perf.playID], perf))} (${perf.audience} seats)\n`;
 
-    totalAmount += amountFor(play, perf);
+    totalAmount += amountFor(plays[perf.playID], perf);
   }
 
   result += `Amount owed is ${usd(totalAmount)}\n`;
