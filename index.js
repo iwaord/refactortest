@@ -38,17 +38,20 @@ function usd(amount) {
 }
 
 exports.statement = function statement (invoice, plays) {
-  let totalAmount = 0;
+
   let volumeCredits = 0;
-  let result = `Statement for ${invoice.customer}\n`;
-
   for (let perf of invoice.performances) { 
- 
     volumeCredits += volumeCreditsFor(plays[perf.playID], perf);
+  }
 
+  let result = `Statement for ${invoice.customer}\n`;
+  for (let perf of invoice.performances) { 
     // 注文の内訳を出力
     result += ` ${plays[perf.playID].name}: ${usd(amountFor(plays[perf.playID], perf))} (${perf.audience} seats)\n`;
+  }
 
+  let totalAmount = 0;
+  for (let perf of invoice.performances) { 
     totalAmount += amountFor(plays[perf.playID], perf);
   }
 
