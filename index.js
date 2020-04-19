@@ -45,20 +45,22 @@ function totalVolumeCreditsFor(invoice, plays) {
   return result;
 }
 
-exports.statement = function statement (invoice, plays) {
+function totalAmountFor(invoice, plays) {
+  let result = 0;
+  for (let perf of invoice.performances) { 
+    result += amountFor(plays[perf.playID], perf);
+  }
+  return result;
+}
 
+exports.statement = function statement (invoice, plays) {
   let result = `Statement for ${invoice.customer}\n`;
   for (let perf of invoice.performances) { 
     // 注文の内訳を出力
     result += ` ${plays[perf.playID].name}: ${usd(amountFor(plays[perf.playID], perf))} (${perf.audience} seats)\n`;
   }
 
-  let totalAmount = 0;
-  for (let perf of invoice.performances) { 
-    totalAmount += amountFor(plays[perf.playID], perf);
-  }
-
-  result += `Amount owed is ${usd(totalAmount)}\n`;
+  result += `Amount owed is ${usd(totalAmountFor(invoice, plays))}\n`;
   result += `You earned ${totalVolumeCreditsFor(invoice, plays)} credits\n`;
 
   return result;
