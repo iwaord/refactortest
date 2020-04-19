@@ -9,7 +9,7 @@ describe('amountFor について', () => {
     if (item.playID == testPlayID) return true;
   });
   it(testPlayID + 'の料金計算が一致すること', () => {
-    expect(indexJS.amountFor(indexJS.playFor(testPerformance[0]), testPerformance[0])).toEqual(65000)
+    expect(indexJS.amountFor(testPerformance[0])).toEqual(65000)
   })
 })
 
@@ -20,7 +20,7 @@ describe('volumeCreditsFor について', () => {
     if (item.playID == testPlayID) return true;
   });
   it(testPlayID + 'のポイント計算が一致すること', () => {
-    expect(indexJS.volumeCreditsFor(indexJS.playFor(testPerformance[0]), testPerformance[0])).toEqual(25)
+    expect(indexJS.volumeCreditsFor(testPerformance[0])).toEqual(25)
   })
 })
 
