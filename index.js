@@ -37,12 +37,15 @@ function usd(amount) {
   return new Intl.NumberFormat("en-US",  {style: "currency", currency: "USD",  minimumFractionDigits: 2 }).format(amount/100);
 }
 
-exports.statement = function statement (invoice, plays) {
-
-  let volumeCredits = 0;
+function totalVolumeCreditsFor(invoice, plays) {
+  let result = 0;
   for (let perf of invoice.performances) { 
-    volumeCredits += volumeCreditsFor(plays[perf.playID], perf);
+    result += volumeCreditsFor(plays[perf.playID], perf);
   }
+  return result;
+}
+
+exports.statement = function statement (invoice, plays) {
 
   let result = `Statement for ${invoice.customer}\n`;
   for (let perf of invoice.performances) { 
@@ -56,7 +59,7 @@ exports.statement = function statement (invoice, plays) {
   }
 
   result += `Amount owed is ${usd(totalAmount)}\n`;
-  result += `You earned ${volumeCredits} credits\n`;
+  result += `You earned ${totalVolumeCreditsFor(invoice, plays)} credits\n`;
 
   return result;
 } 
