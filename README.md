@@ -1,4 +1,6 @@
 # refactortest
+Refactoring a JavaScript video store
+https://martinfowler.com/articles/refactoring-video-store-js/
 
 ## refactor #1
 リファクタリングはブランチ分けして、そこで実施することで、その時々のリファクタリングの記録を残す試み。
@@ -17,6 +19,9 @@
 
 ### 一時変数のインライン化
 一時変数への参照をすべて式で置き換える
+
+### ステートメントのスライド
+意味のある変数とロジックを近くに配置する
 
 
 ## ■そのほか
