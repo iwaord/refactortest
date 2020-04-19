@@ -1,4 +1,5 @@
-// 料金を計算する
+const plays = JSON.parse('{  "hamlet": {"name": "Hamlet", "type": "tragedy"},  "as−like": {"name": "As You Like It", "type": "comedy"},  "othello": {"name": "Othello", "type": "tragedy"}  }')
+
 var amountFor = function amountFor(play, aPerformance) {
 　let result =0;
 
@@ -37,31 +38,36 @@ function usd(amount) {
   return new Intl.NumberFormat("en-US",  {style: "currency", currency: "USD",  minimumFractionDigits: 2 }).format(amount/100);
 }
 
-function totalVolumeCreditsFor(invoice, plays) {
+function totalVolumeCreditsFor(invoice) {
   let result = 0;
   for (let perf of invoice.performances) { 
-    result += volumeCreditsFor(plays[perf.playID], perf);
+    result += volumeCreditsFor(playFor(perf), perf);
   }
   return result;
 }
 
-function totalAmountFor(invoice, plays) {
+function totalAmountFor(invoice) {
   let result = 0;
   for (let perf of invoice.performances) { 
-    result += amountFor(plays[perf.playID], perf);
+    result += amountFor(playFor(perf), perf);
   }
   return result;
 }
 
-exports.statement = function statement (invoice, plays) {
+var playFor = function playFor(aPerformance) {
+  return plays[aPerformance.playID];
+}
+exports.playFor = playFor;
+
+exports.statement = function statement (invoice) {
   let result = `Statement for ${invoice.customer}\n`;
   for (let perf of invoice.performances) { 
     // 注文の内訳を出力
-    result += ` ${plays[perf.playID].name}: ${usd(amountFor(plays[perf.playID], perf))} (${perf.audience} seats)\n`;
+    result += ` ${playFor(perf).name}: ${usd(amountFor(playFor(perf), perf))} (${perf.audience} seats)\n`;
   }
 
-  result += `Amount owed is ${usd(totalAmountFor(invoice, plays))}\n`;
-  result += `You earned ${totalVolumeCreditsFor(invoice, plays)} credits\n`;
+  result += `Amount owed is ${usd(totalAmountFor(invoice))}\n`;
+  result += `You earned ${totalVolumeCreditsFor(invoice)} credits\n`;
 
   return result;
 } 

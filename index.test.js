@@ -1,7 +1,5 @@
 const indexJS = require('./index')
 
-const plays = JSON.parse('{  "hamlet": {"name": "Hamlet", "type": "tragedy"},  "as−like": {"name": "As You Like It", "type": "comedy"},  "othello": {"name": "Othello", "type": "tragedy"}  }')
-
 const invoices = JSON.parse('[  {  "customer": "BigCo",  "performances": [  {  "playID": "hamlet",  "audience": 55  },  {  "playID": "as−like",  "audience": 35  },  {  "playID": "othello",  "audience": 40  }  ]  }  ]')
 
 // 料金テスト
@@ -11,7 +9,7 @@ describe('amountFor について', () => {
     if (item.playID == testPlayID) return true;
   });
   it(testPlayID + 'の料金計算が一致すること', () => {
-    expect(indexJS.amountFor(plays[testPlayID], testPerformance[0])).toEqual(65000)
+    expect(indexJS.amountFor(indexJS.playFor(testPerformance[0]), testPerformance[0])).toEqual(65000)
   })
 })
 
@@ -22,7 +20,7 @@ describe('volumeCreditsFor について', () => {
     if (item.playID == testPlayID) return true;
   });
   it(testPlayID + 'のポイント計算が一致すること', () => {
-    expect(indexJS.volumeCreditsFor(plays[testPlayID], testPerformance[0])).toEqual(25)
+    expect(indexJS.volumeCreditsFor(indexJS.playFor(testPerformance[0]), testPerformance[0])).toEqual(25)
   })
 })
 
@@ -31,6 +29,6 @@ const exp = 'Statement for BigCo\n Hamlet: $650.00 (55 seats)\n As You Like It: 
 
 describe('statement について', () => {
   it('レポートが一致すること', () => {
-    expect(indexJS.statement(invoices[0], plays)).toEqual(exp)
+    expect(indexJS.statement(invoices[0])).toEqual(exp)
   })
 })
