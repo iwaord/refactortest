@@ -33,12 +33,14 @@ var volumeCreditsFor = function volumeCreditsFor(play, perf) {
 }
 exports.volumeCreditsFor = volumeCreditsFor;
 
+function usd() {
+  return new Intl.NumberFormat("en-US",  {style: "currency", currency: "USD",  minimumFractionDigits: 2 });
+}
+
 exports.statement = function statement (invoice, plays) {
   let totalAmount = 0;
   let volumeCredits = 0;
   let result = `Statement for ${invoice.customer}\n`;
-
-  const format = new Intl.NumberFormat("en-US",  {style: "currency", currency: "USD",  minimumFractionDigits: 2 }).format;
 
   for (let perf of invoice.performances) { 
     const play = plays[perf.playID];
@@ -46,12 +48,12 @@ exports.statement = function statement (invoice, plays) {
     volumeCredits += volumeCreditsFor(play, perf);
 
     // 注文の内訳を出力
-    result += ` ${play.name}: ${format(amountFor(play, perf)/100)} (${perf.audience} seats)\n`;
+    result += ` ${play.name}: ${usd().format(amountFor(play, perf)/100)} (${perf.audience} seats)\n`;
 
     totalAmount += amountFor(play, perf);
   }
 
-  result += `Amount owed is ${format(totalAmount/100)}\n`;
+  result += `Amount owed is ${usd().format(totalAmount/100)}\n`;
   result += `You earned ${volumeCredits} credits\n`;
 
   return result;
