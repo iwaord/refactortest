@@ -59,7 +59,7 @@ var playFor = function playFor(aPerformance) {
 }
 exports.playFor = playFor;
 
-exports.statement = function statement (invoice) {
+var renderingPlainText = function renderingPlainText(invoice) {
   let result = `Statement for ${invoice.customer}\n`;
   for (let perf of invoice.performances) { 
     // 注文の内訳を出力
@@ -70,4 +70,5 @@ exports.statement = function statement (invoice) {
   result += `You earned ${totalVolumeCreditsFor(invoice)} credits\n`;
 
   return result;
-} 
+}
+exports.renderingPlainText = renderingPlainText;
