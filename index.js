@@ -1,9 +1,9 @@
-const calculate = require('./calculate');
+const statementData = require('./statementData');
 
 var amountFor = function amountFor(aPerformance) {
 　let result =0;
 
-  switch (calculate.playFor(aPerformance).type) {
+  switch (statementData.playFor(aPerformance).type) {
     case "tragedy":
       result = 40000;
       if (aPerformance.audience > 30) {
@@ -29,7 +29,7 @@ var volumeCreditsFor = function volumeCreditsFor(perf) {
   // ボリューム特典のポイントを加算
   result += Math.max(perf.audience - 30, 0);
   // 喜劇のときは 10人につき、 さらにポイントを加算
-  if ("comedy" === calculate.playFor(perf).type) result += Math.floor(perf.audience/ 5);
+  if ("comedy" === statementData.playFor(perf).type) result += Math.floor(perf.audience/ 5);
   return result;
 }
 exports.volumeCreditsFor = volumeCreditsFor;
@@ -58,7 +58,7 @@ var renderingPlainText = function renderingPlainText(invoice) {
   let result = `Statement for ${invoice.customer}\n`;
   for (let perf of invoice.performances) { 
     // 注文の内訳を出力
-    result += ` ${calculate.playFor(perf).name}: ${usd(amountFor(perf))} (${perf.audience} seats)\n`;
+    result += ` ${statementData.playFor(perf).name}: ${usd(amountFor(perf))} (${perf.audience} seats)\n`;
   }
 
   result += `Amount owed is ${usd(totalAmountFor(invoice))}\n`;

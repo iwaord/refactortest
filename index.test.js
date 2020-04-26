@@ -1,4 +1,5 @@
 const indexJS = require('./index')
+const statementData = require('./statementData');
 
 const invoices = JSON.parse('[  {  "customer": "BigCo",  "performances": [  {  "playID": "hamlet",  "audience": 55  },  {  "playID": "as−like",  "audience": 35  },  {  "playID": "othello",  "audience": 40  }  ]  }  ]')
 
@@ -29,6 +30,6 @@ const exp = 'Statement for BigCo\n Hamlet: $650.00 (55 seats)\n As You Like It: 
 
 describe('renderingPlainText について', () => {
   it('レポートが一致すること', () => {
-    expect(indexJS.renderingPlainText(invoices[0])).toEqual(exp)
+    expect(indexJS.renderingPlainText(statementData.createData(invoices[0]))).toEqual(exp);
   })
 })
