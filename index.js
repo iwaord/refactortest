@@ -1,4 +1,5 @@
 const statementData = require('./statementData');
+const currency = require('./currency');
 
 var amountFor = function amountFor(aPerformance) {
 　let result =0;
@@ -33,10 +34,6 @@ var volumeCreditsFor = function volumeCreditsFor(aPerformance) {
 }
 exports.volumeCreditsFor = volumeCreditsFor;
 
-function usd(amount) {
-  return new Intl.NumberFormat("en-US",  {style: "currency", currency: "USD",  minimumFractionDigits: 2 }).format(amount/100);
-}
-
 function totalVolumeCreditsFor(invoice) {
   let result = 0;
   for (let perf of invoice.performances) { 
@@ -57,10 +54,10 @@ var renderingPlainText = function renderingPlainText(invoice) {
   let result = `Statement for ${invoice.customer}\n`;
   for (let perf of invoice.performances) { 
     // 注文の内訳を出力
-    result += ` ${perf.play.name}: ${usd(amountFor(perf))} (${perf.audience} seats)\n`;
+    result += ` ${perf.play.name}: ${currency.usd(amountFor(perf))} (${perf.audience} seats)\n`;
   }
 
-  result += `Amount owed is ${usd(totalAmountFor(invoice))}\n`;
+  result += `Amount owed is ${currency.usd(totalAmountFor(invoice))}\n`;
   result += `You earned ${totalVolumeCreditsFor(invoice)} credits\n`;
 
   return result;
