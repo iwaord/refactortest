@@ -6,7 +6,7 @@ const invoices = JSON.parse('[  {  "customer": "BigCo",  "performances": [  {  "
 // 料金テスト
 describe('amountFor について', () => {
   var testPlayID = 'hamlet';
-  var testPerformance = invoices[0].performances.filter(function(item, index){
+  var testPerformance = statementData.createData(invoices[0]).performances.filter(function(item, index){
     if (item.playID == testPlayID) return true;
   });
   it(testPlayID + 'の料金計算が一致すること', () => {
@@ -17,7 +17,7 @@ describe('amountFor について', () => {
 // ポイント計算のテスト
 describe('volumeCreditsFor について', () => {
   var testPlayID = 'hamlet';
-  var testPerformance = invoices[0].performances.filter(function(item, index){
+  var testPerformance = statementData.createData(invoices[0]).performances.filter(function(item, index){
     if (item.playID == testPlayID) return true;
   });
   it(testPlayID + 'のポイント計算が一致すること', () => {

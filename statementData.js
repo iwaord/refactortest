@@ -5,18 +5,17 @@ var createData = function createData(invoice) {
   statementData.customer = invoice.customer;
   statementData.performances = invoice.performances.map(enrichPerformance);
 
-  return invoice;
+  return statementData;
 }
 exports.createData = createData;
 
 function enrichPerformance(aPerformance) {
   const result = Object.assign({}, aPerformance); 
   result.play = playFor(result);
-  
+ 
   return result;
 }
 
-var playFor = function playFor(aPerformance) {
+function playFor(aPerformance) {
   return plays[aPerformance.playID];
 }
-exports.playFor = playFor;
