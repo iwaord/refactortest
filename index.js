@@ -1,4 +1,3 @@
-const statementData = require('./statementData');
 const currency = require('./currency');
 
 var amountFor = function amountFor(aPerformance) {
@@ -25,19 +24,10 @@ var amountFor = function amountFor(aPerformance) {
 }
 exports.amountFor = amountFor;
 
-var volumeCreditsFor = function volumeCreditsFor(aPerformance) {
-  // ボリューム特典のポイントを加算
-  let result = Math.max(aPerformance.audience - 30, 0);
-  // 喜劇のときは 10人につき、 さらにポイントを加算
-  if ("comedy" === aPerformance.play.type) result += Math.floor(aPerformance.audience/ 5);
-  return result;
-}
-exports.volumeCreditsFor = volumeCreditsFor;
-
 function totalVolumeCreditsFor(invoice) {
   let result = 0;
   for (let perf of invoice.performances) { 
-    result += volumeCreditsFor(perf);
+    result += perf.volumeCredits;
   }
   return result;
 }

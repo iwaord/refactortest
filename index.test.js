@@ -21,7 +21,7 @@ describe('volumeCreditsFor について', () => {
     if (item.playID == testPlayID) return true;
   });
   it(testPlayID + 'のポイント計算が一致すること', () => {
-    expect(indexJS.volumeCreditsFor(testPerformance[0])).toEqual(25)
+    expect(statementData.volumeCreditsFor(testPerformance[0])).toEqual(25)
   })
 })
 
