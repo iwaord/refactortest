@@ -25,9 +25,8 @@ var amountFor = function amountFor(aPerformance) {
 exports.amountFor = amountFor;
 
 var volumeCreditsFor = function volumeCreditsFor(perf) {
-  let result = 0;
   // ボリューム特典のポイントを加算
-  result += Math.max(perf.audience - 30, 0);
+  let result = Math.max(perf.audience - 30, 0);
   // 喜劇のときは 10人につき、 さらにポイントを加算
   if ("comedy" === statementData.playFor(perf).type) result += Math.floor(perf.audience/ 5);
   return result;
